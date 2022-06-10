@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -58,6 +59,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView tvScreenName;
         ImageView ivPostImage;
         TextView ivTime;
+        TextView tvFavorite;
+        ImageButton ibFavorite;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +69,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             ivPostImage = itemView.findViewById(R.id.ivPostImage);
             ivTime = itemView.findViewById(R.id.ivTime);
+            tvFavorite = itemView.findViewById(R.id.tvFavoriteCount);
+            ibFavorite = itemView.findViewById(R.id.ibFavorite);
         }
 
         public void bind(Tweet tweet) {
@@ -86,6 +91,17 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(80));
                 Glide.with(context).load(tweet.image).apply(requestOptions).into(ivPostImage);
             }
+            ibFavorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // if not already favorited
+                    //tell twitter i want to favorite this
+                    //change the drawable to btn_star_big_on
+                    // change the text inside tvFavoriteCount
+
+                    // else if already
+                }
+            });
         }
     }
     // Clean all elements of the recycler

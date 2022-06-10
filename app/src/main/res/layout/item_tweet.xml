@@ -77,5 +77,24 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivPostImage" />
+        app:layout_constraintTop_toBottomOf="@+id/ibFavorite" />
+
+    <TextView
+        android:id="@+id/tvFavoriteCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="18dp"
+        android:text="0"
+        app:layout_constraintStart_toEndOf="@+id/ibFavorite"
+        app:layout_constraintTop_toBottomOf="@+id/ivPostImage"
+        app:layout_constraintTop_toTopOf="@+id/ibFavorite" />
+
+    <ImageButton
+        android:id="@+id/ibFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/ivPostImage"
+        app:layout_constraintTop_toBottomOf="@+id/ivPostImage"
+        app:srcCompat="@android:drawable/btn_star_big_off" />
 </androidx.constraintlayout.widget.ConstraintLayout>
