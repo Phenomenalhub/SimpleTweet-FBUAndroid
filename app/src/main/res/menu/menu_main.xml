@@ -8,8 +8,10 @@
         android:title="Compose"
         app:showAsAction="always" />
     <item
+        
         android:id="@+id/miLogout"
         android:icon="@drawable/logout"
+        android:onClick="miLogout"
         android:title="Log Out"
         app:showAsAction="always" />
 </menu>

@@ -1,6 +1,8 @@
 package com.codepath.apps.restclienttemplate;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +22,8 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -66,6 +70,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         TextView ivTime;
         TextView tvFavorite;
         ImageButton ibFavorite;
+        ImageButton ibReply;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -76,6 +81,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             ivTime = itemView.findViewById(R.id.ivTime);
             tvFavorite = itemView.findViewById(R.id.tvFavoriteCount);
             ibFavorite = itemView.findViewById(R.id.ibFavorite);
+            ibReply = itemView.findViewById(R.id.ibReply);
         }
 
         public void bind(Tweet tweet) {
@@ -84,13 +90,26 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvScreenName.setText(tweet.user.screenName);
             ivTime.setText(tweet.getRelativeTimeAgo(tweet.createdAt));
 
+            ibReply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, ComposeActivity.class);
+                    //intent.putExtra("should_reply_to_tweet", true);
+                    //intent.putExtra("id_of_tweet", tweet.id);
+                    //intent.putExtra("screename_of_tweet_to_reply_to", tweet.user.screenName);
+                    intent.putExtra("tweet_to_reply_to", Parcels.wrap(tweet));
+                    ((Activity)context).startActivityForResult(intent, TimelineActivity.REQUEST_CODE);
+                    context.startActivity(intent);
+                }
+            });
+
             if(tweet.isFavorited) {
                 // yellow
-                Drawable newImage = context.getDrawable(android.R.drawable.btn_star_big_on);
+                Drawable newImage = context.getDrawable(R.drawable.ic_vector_heart);
                 ibFavorite.setImageDrawable(newImage);
             } else {
                 //gray
-                Drawable newImage = context.getDrawable(android.R.drawable.btn_star_big_off);
+                Drawable newImage = context.getDrawable(R.drawable.ic_vector_heart_stroke);
                 ibFavorite.setImageDrawable(newImage);
             }
 
@@ -125,14 +144,14 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
 
                             }
                         });
-                        Drawable newImage = context.getDrawable(android.R.drawable.btn_star_big_on);
+                        Drawable newImage = context.getDrawable(R.drawable.ic_vector_heart);
                         ibFavorite.setImageDrawable(newImage);
                         tweet.isFavorited = true;
                         tweet.favoriteCount += 1;
                         tvFavorite.setText(String.valueOf(tweet.favoriteCount));
 
                     } else {
-                        Drawable newimage = context.getDrawable(android.R.drawable.btn_star_big_off);
+                        Drawable newimage = context.getDrawable(R.drawable.ic_vector_heart_stroke);
                         ibFavorite.setImageDrawable(newimage);
                         tweet.isFavorited = false;
                         tweet.favoriteCount -= 1;

@@ -28,9 +28,10 @@
 
     <TextView
         android:id="@+id/tvBody"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
         app:layout_constraintTop_toBottomOf="@+id/tvScreenName"
         tools:text="My first tweet test as a developer!!!" />
@@ -38,7 +39,7 @@
     <ImageView
         android:id="@+id/ivPostImage"
         android:layout_width="310dp"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toEndOf="@+id/ivProfileImage"
@@ -97,4 +98,13 @@
         app:layout_constraintStart_toStartOf="@+id/ivPostImage"
         app:layout_constraintTop_toBottomOf="@+id/ivPostImage"
         app:srcCompat="@android:drawable/btn_star_big_off" />
+
+    <ImageButton
+        android:id="@+id/ibReply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/tvFavoriteCount"
+        app:layout_constraintTop_toBottomOf="@+id/ivPostImage"
+        app:srcCompat="@drawable/ic_vector_compose" />
 </androidx.constraintlayout.widget.ConstraintLayout>

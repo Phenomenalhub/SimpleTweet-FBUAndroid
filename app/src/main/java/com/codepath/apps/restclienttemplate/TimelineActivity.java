@@ -29,20 +29,18 @@ import okhttp3.Headers;
 
 public class TimelineActivity extends AppCompatActivity {
     public static final String TAG = "TimelineActivity";
-    private final int REQUEST_CODE = 20;
+    public static int REQUEST_CODE = 20;
     private SwipeRefreshLayout swipeContainer;
 
     TwitterClient client;
     RecyclerView rvTweets;
     List<Tweet>tweets;
     TweetsAdapter adapter;
-    Button onLogoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-
         // Lookup the swipe container view
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -71,14 +69,6 @@ public class TimelineActivity extends AppCompatActivity {
         rvTweets.setLayoutManager(new LinearLayoutManager(this));
         rvTweets.setAdapter(adapter);
         populateHomeTimeline();
-        onLogoutButton=findViewById(R.id.onLogoutButton);
-        onLogoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onLogoutButton();
-                client.clearAccessToken();
-            }
-        });
     }
 
     public void fetchTimelineAsync(int page) {
@@ -159,7 +149,8 @@ public class TimelineActivity extends AppCompatActivity {
             }
         });
     }
-    public void onLogoutButton() {
+
+    public void miLogout(MenuItem item) {
         // forget who's logged in
         TwitterApp.getRestClient(this).clearAccessToken();
         // navigate backwards to Login screen
