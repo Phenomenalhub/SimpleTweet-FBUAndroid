@@ -1,6 +1,8 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +19,11 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 
 import java.util.List;
+
+import okhttp3.Headers;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder>{
 
@@ -74,9 +79,22 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         }
 
         public void bind(Tweet tweet) {
+            tvFavorite.setText(String.valueOf(tweet.favoriteCount));
             tvBody.setText(tweet.body);
             tvScreenName.setText(tweet.user.screenName);
             ivTime.setText(tweet.getRelativeTimeAgo(tweet.createdAt));
+
+            if(tweet.isFavorited) {
+                // yellow
+                Drawable newImage = context.getDrawable(android.R.drawable.btn_star_big_on);
+                ibFavorite.setImageDrawable(newImage);
+            } else {
+                //gray
+                Drawable newImage = context.getDrawable(android.R.drawable.btn_star_big_off);
+                ibFavorite.setImageDrawable(newImage);
+            }
+
+
             int radius = 300; // corner radius, higher value = more rounded
             RequestOptions requestOptions = new RequestOptions();
             requestOptions = requestOptions.transforms(new CircleCrop(), new RoundedCorners(30));
@@ -95,11 +113,48 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 @Override
                 public void onClick(View view) {
                     // if not already favorited
-                    //tell twitter i want to favorite this
-                    //change the drawable to btn_star_big_on
-                    // change the text inside tvFavoriteCount
+                    if(!tweet.isFavorited) {
+                        TwitterApp.getRestClient(context).favorite(tweet.id, new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                                Log.i("adapter", "this should have been favorited");
+                            }
 
-                    // else if already
+                            @Override
+                            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+
+                            }
+                        });
+                        Drawable newImage = context.getDrawable(android.R.drawable.btn_star_big_on);
+                        ibFavorite.setImageDrawable(newImage);
+                        tweet.isFavorited = true;
+                        tweet.favoriteCount += 1;
+                        tvFavorite.setText(String.valueOf(tweet.favoriteCount));
+
+                    } else {
+                        Drawable newimage = context.getDrawable(android.R.drawable.btn_star_big_off);
+                        ibFavorite.setImageDrawable(newimage);
+                        tweet.isFavorited = false;
+                        tweet.favoriteCount -= 1;
+                        tvFavorite.setText(String.valueOf(tweet.favoriteCount));
+                        TwitterApp.getRestClient(context).unfavorited(tweet.id, new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Headers headers, JSON json) {
+                                Log.i("adapter", "this should have been favorited");
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
+
+                            }
+                        });
+
+                        //tell twitter i want to favorite this
+                        //change the drawable to btn_star_big_on
+                        // change the text inside tvFavoriteCount
+
+                        // else if already
+                    }
                 }
             });
         }
