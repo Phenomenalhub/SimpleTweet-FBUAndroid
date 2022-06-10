@@ -31,6 +31,7 @@ public class TimelineActivity extends AppCompatActivity {
     public static final String TAG = "TimelineActivity";
     private final int REQUEST_CODE = 20;
     private SwipeRefreshLayout swipeContainer;
+
     TwitterClient client;
     RecyclerView rvTweets;
     List<Tweet>tweets;

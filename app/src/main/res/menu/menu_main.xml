@@ -4,7 +4,12 @@
 
     <item
         android:id="@+id/compose"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:icon="@drawable/write"
         android:title="Compose"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/miLogout"
+        android:icon="@drawable/logout"
+        android:title="Log Out"
         app:showAsAction="always" />
 </menu>
