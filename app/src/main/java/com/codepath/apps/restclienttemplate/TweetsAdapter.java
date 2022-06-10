@@ -11,6 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.util.List;
@@ -68,7 +72,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             tvBody.setText(tweet.body);
             tvScreenName.setText(tweet.user.screenName);
             ivTime.setText(tweet.getRelativeTimeAgo(tweet.createdAt));
-            Glide.with(context).load(tweet.user.profileImageUrl).into(ivProfileImage);
+            int radius = 300; // corner radius, higher value = more rounded
+            RequestOptions requestOptions = new RequestOptions();
+            requestOptions = requestOptions.transforms(new CircleCrop(), new RoundedCorners(30));
+            Glide.with(context).load(tweet.user.profileImageUrl).apply(requestOptions).into(ivProfileImage);
 
             // if the tweet has no media attached set visibility to none
             if (tweet.image.equals("none")){
@@ -76,7 +83,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
             }else {
                 // load tweet image
                 ivPostImage.setVisibility(View.VISIBLE);
-                Glide.with(context).load(tweet.image).into(ivPostImage);
+                requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(80));
+                Glide.with(context).load(tweet.image).apply(requestOptions).into(ivPostImage);
             }
         }
     }
