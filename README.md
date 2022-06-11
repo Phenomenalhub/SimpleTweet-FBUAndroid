@@ -47,13 +47,14 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-GIF created with [Kap](https://getkap.co/).
+<img src="SimpleTweet.gif" width=300><br>
 
 ## Notes
 
 Describe any challenges encountered while building the app.
+* Adding comments to post
+* Creating entities for media post
 
 ## Open-source libraries used
 
