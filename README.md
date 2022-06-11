@@ -50,11 +50,11 @@ Here's a walkthrough of implemented user stories:
 
 <img src="Twitter.gif" width=300><br>
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif](https://github.com/Phenomenalhub/SimpleTweet-FBUAndroid/blob/master/Twitter.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
 ## Notes
 
 Describe any challenges encountered while building the app.
+* Adding comments to post
+* Creating entities for media post
 
 ## Open-source libraries used
 
