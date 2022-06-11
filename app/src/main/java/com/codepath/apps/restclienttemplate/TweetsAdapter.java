@@ -99,7 +99,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                     //intent.putExtra("screename_of_tweet_to_reply_to", tweet.user.screenName);
                     intent.putExtra("tweet_to_reply_to", Parcels.wrap(tweet));
                     ((Activity)context).startActivityForResult(intent, TimelineActivity.REQUEST_CODE);
-                    context.startActivity(intent);
                 }
             });
 

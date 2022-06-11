@@ -71,14 +71,16 @@ public class ComposeActivity extends AppCompatActivity {
                 }
                 if (tweetContent.length() > MAX_TWEET_LENGTH) {
                     Toast.makeText(ComposeActivity.this, "Sorry, your tweet is long",Toast.LENGTH_LONG).show();
+                    return;
                 }
-                Toast.makeText(ComposeActivity.this, tweetContent,Toast.LENGTH_LONG).show();
+                // Toast.makeText(ComposeActivity.this, tweetContent,Toast.LENGTH_LONG).show();
                 // make an API call to Twitter to publish the tweet
                 if (getIntent().hasExtra("tweet_to_reply_to")) {
                     Tweet tweet = Parcels.unwrap(getIntent().getParcelableExtra("tweet_to_reply_to"));
                     String id_of_tweet = tweet.id;
                     String screename = tweet.user.screenName;
                     client.replytoTweet(id_of_tweet, "@" + screename + " "+ tweetContent, handler);
+                    finish();
 
                 }else{
                     client.publishTweet(tweetContent, new JsonHttpResponseHandler() {
