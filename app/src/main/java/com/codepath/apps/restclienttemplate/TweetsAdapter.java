@@ -53,7 +53,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         Tweet tweet =tweets.get(position);
         // Bind the tweet with the view holder
         holder.bind(tweet);
-
     }
 
     @Override
@@ -94,9 +93,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, ComposeActivity.class);
-                    //intent.putExtra("should_reply_to_tweet", true);
-                    //intent.putExtra("id_of_tweet", tweet.id);
-                    //intent.putExtra("screename_of_tweet_to_reply_to", tweet.user.screenName);
                     intent.putExtra("tweet_to_reply_to", Parcels.wrap(tweet));
                     ((Activity)context).startActivityForResult(intent, TimelineActivity.REQUEST_CODE);
                 }
@@ -111,7 +107,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                 Drawable newImage = context.getDrawable(R.drawable.ic_vector_heart_stroke);
                 ibFavorite.setImageDrawable(newImage);
             }
-
 
             int radius = 300; // corner radius, higher value = more rounded
             RequestOptions requestOptions = new RequestOptions();
@@ -160,18 +155,10 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
                             public void onSuccess(int statusCode, Headers headers, JSON json) {
                                 Log.i("adapter", "this should have been favorited");
                             }
-
                             @Override
                             public void onFailure(int statusCode, Headers headers, String response, Throwable throwable) {
-
                             }
                         });
-
-                        //tell twitter i want to favorite this
-                        //change the drawable to btn_star_big_on
-                        // change the text inside tvFavoriteCount
-
-                        // else if already
                     }
                 }
             });
@@ -182,7 +169,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.ViewHolder
         tweets.clear();
         notifyDataSetChanged();
     }
-
     // Add a list of items -- change to type used
     public void addAll(List<Tweet> list) {
         tweets.addAll(list);

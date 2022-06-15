@@ -30,11 +30,8 @@ public class Tweet {
     private static final int HOUR_MILLIS = 60 * MINUTE_MILLIS;
     private static final int DAY_MILLIS = 24 * HOUR_MILLIS;
 
-
     public Tweet(){
-
     }
-
     public static Tweet fromJson(JSONObject jsonObject) throws JSONException {
         if (jsonObject.has("retweeted_status")){
             return null;
@@ -57,9 +54,6 @@ public class Tweet {
         } else{
             tweet.image = "none";
         }
-
-
-
         return tweet;
     }
     public static List<Tweet>fromjsonArray(JSONArray jsonArray) throws JSONException {
@@ -102,8 +96,6 @@ public class Tweet {
             Log.i(TAG, "getRelativeTimeAgo failed");
             e.printStackTrace();
         }
-
         return "";
     }
-
 }

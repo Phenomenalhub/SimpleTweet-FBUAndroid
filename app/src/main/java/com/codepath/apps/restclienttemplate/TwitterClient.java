@@ -70,6 +70,4 @@ public class TwitterClient extends OAuthBaseClient {
 		params.put("id", tweetid);
 		client.post(apiUrl, params,"", handler);
 	}
-
-
 }

@@ -23,7 +23,6 @@ public class ComposeActivity extends AppCompatActivity {
     public static final String TAG = "ComposeActivity";
     EditText etCompose;
     Button btnTweet;
-
     TwitterClient client;
 
     JsonHttpResponseHandler handler = new JsonHttpResponseHandler() {
